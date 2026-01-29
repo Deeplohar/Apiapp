@@ -28,5 +28,15 @@ app.post('/login', async (req, res) => {
     }
 });
 
+} catch (error) {
+    // Isse aapko exact reason pata chalega ki login fail kyun hua
+    const errorMessage = error.response ? error.response.data.message : error.message;
+    res.status(error.response ? error.response.status : 500).json({ 
+        status: false, 
+        message: errorMessage 
+    });
+}
+
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
